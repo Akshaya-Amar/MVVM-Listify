@@ -20,7 +20,7 @@ class HomeActivity : AppCompatActivity() {
 
     private val userAdapter by lazy {
         UserAdapter { user ->
-            showToast(user.firstName!!)
+            showToast(user.firstName ?: "Unknown")
         }
     }
 
@@ -48,26 +48,29 @@ class HomeActivity : AppCompatActivity() {
         }
     }
 
-    private fun showError(message: String) {
+    private fun toggleVisibility(isLoading: Boolean = false) {
         with(binding) {
-            progressBar.hide()
-            recyclerView.show()
+            if (isLoading) {
+                progressBar.show()
+                recyclerView.hide()
+            } else {
+                progressBar.hide()
+                recyclerView.show()
+            }
         }
+    }
+
+    private fun showError(message: String) {
+        toggleVisibility()
         showToast(message)
     }
 
     private fun displayData(users: List<User>?) {
-        with(binding) {
-            progressBar.hide()
-            recyclerView.show()
-        }
+        toggleVisibility()
         userAdapter.submitList(users)
     }
 
     private fun showLoadingIndicator() {
-        with(binding) {
-            progressBar.show()
-            recyclerView.hide()
-        }
+        toggleVisibility(true)
     }
 }
