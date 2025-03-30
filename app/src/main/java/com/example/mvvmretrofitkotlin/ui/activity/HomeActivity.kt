@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.mvvmretrofitkotlin.common.Result
 import com.example.mvvmretrofitkotlin.common.hide
 import com.example.mvvmretrofitkotlin.common.show
+import com.example.mvvmretrofitkotlin.common.showSnackBar
 import com.example.mvvmretrofitkotlin.common.showToast
 import com.example.mvvmretrofitkotlin.data.model.User
 import com.example.mvvmretrofitkotlin.databinding.ActivityHomeBinding
@@ -48,29 +49,20 @@ class HomeActivity : AppCompatActivity() {
         }
     }
 
-    private fun toggleVisibility(isLoading: Boolean = false) {
-        with(binding) {
-            if (isLoading) {
-                progressBar.show()
-                recyclerView.hide()
-            } else {
-                progressBar.hide()
-                recyclerView.show()
-            }
-        }
-    }
-
     private fun showError(message: String) {
-        toggleVisibility()
-        showToast(message)
+        binding.progressBar.hide()
+        binding.recyclerView.hide()
+        binding.root.showSnackBar(message)
     }
 
     private fun displayData(users: List<User>?) {
-        toggleVisibility()
+        binding.progressBar.hide()
+        binding.recyclerView.show()
         userAdapter.submitList(users)
     }
 
     private fun showLoadingIndicator() {
-        toggleVisibility(true)
+        binding.progressBar.show()
+        binding.recyclerView.hide()
     }
 }

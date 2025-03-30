@@ -10,9 +10,9 @@ import kotlinx.coroutines.withContext
 class UserRepositoryImpl(
     private val apiService: ApiService = RetrofitClient.apiService
 ) : UserRepository {
-    override suspend fun fetchUsers(): Result<UserData> = withContext(Dispatchers.IO) {
+    override suspend fun getUsers(): Result<UserData> = withContext(Dispatchers.IO) {
         try {
-            val response = apiService.getUsers()
+            val response = apiService.fetchUsers()
             if (response.isSuccessful) {
                 response.body()?.let { data ->
                     Result.Success(data)

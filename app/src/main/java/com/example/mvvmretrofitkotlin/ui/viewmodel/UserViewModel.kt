@@ -18,12 +18,12 @@ class UserViewModel(
     val users: LiveData<Result<UserData>> get() = _users
 
     init {
-        fetchUsers()
+        getUsers()
     }
 
-    private fun fetchUsers() {
+    private fun getUsers() {
         viewModelScope.launch {
-            val data = repo.fetchUsers()
+            val data = repo.getUsers()
             _users.postValue(data)
         }
     }

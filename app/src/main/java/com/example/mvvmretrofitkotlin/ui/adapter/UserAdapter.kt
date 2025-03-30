@@ -43,12 +43,12 @@ class UserAdapter(
                 email.text = user.email
                 phoneNumber.text = user.phone
 
-                val fullAddress = user.address?.let {
+                val completeAddress = user.address?.let {
                     "${it.address}, ${it.state}, ${it.city}"
                 } ?: "No Address Available"
-                address.text = fullAddress
+                address.text = completeAddress
 
-                binding.root.setOnClickListener {
+                root.setOnClickListener {
                     onItemClick(user)
                 }
             }
