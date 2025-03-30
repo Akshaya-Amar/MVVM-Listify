@@ -52,10 +52,8 @@ class BottomSheetFragment : BottomSheetDialogFragment() {
 
     companion object {
         private const val USER_KEY = "user_key"
-        fun newInstance(user: User): BottomSheetFragment {
-            return BottomSheetFragment().apply {
-                arguments = bundleOf(USER_KEY to user)
-            }
+        fun newInstance(user: User): BottomSheetFragment = BottomSheetFragment().apply {
+            arguments = bundleOf(USER_KEY to user)
         }
     }
 }
