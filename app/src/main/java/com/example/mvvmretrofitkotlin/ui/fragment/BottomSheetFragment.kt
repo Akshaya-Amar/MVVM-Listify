@@ -1,5 +1,7 @@
 package com.example.mvvmretrofitkotlin.ui.fragment
 
+import android.os.Build
+import android.os.Build.VERSION
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -26,7 +28,13 @@ class BottomSheetFragment : BottomSheetDialogFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        arguments?.getParcelable<User>(USER_KEY)?.let { user ->
+        val userData: User? = if (VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            arguments?.getParcelable(USER_KEY, User::class.java)
+        } else {
+            arguments?.getParcelable(USER_KEY)
+        }
+
+        userData?.let { user ->
             val unknownValue = getString(R.string.unknown_value)
 
             binding.title.text = "${user.firstName ?: unknownValue} details"
