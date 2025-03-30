@@ -8,7 +8,6 @@ import com.example.mvvmretrofitkotlin.common.Result
 import com.example.mvvmretrofitkotlin.common.hide
 import com.example.mvvmretrofitkotlin.common.show
 import com.example.mvvmretrofitkotlin.common.showSnackBar
-import com.example.mvvmretrofitkotlin.common.showToast
 import com.example.mvvmretrofitkotlin.data.model.User
 import com.example.mvvmretrofitkotlin.databinding.ActivityHomeBinding
 import com.example.mvvmretrofitkotlin.ui.adapter.UserAdapter
@@ -22,7 +21,6 @@ class HomeActivity : AppCompatActivity() {
 
     private val userAdapter by lazy {
         UserAdapter { user ->
-//            showToast(user.firstName ?: "Unknown")
             showBottomSheet(user)
         }
     }
@@ -52,7 +50,6 @@ class HomeActivity : AppCompatActivity() {
     }
 
     private fun showBottomSheet(user: User) {
-//        val bottomSheetFragment = BottomSheetFragment()
         val bottomSheetFragment = BottomSheetFragment.newInstance(user)
         bottomSheetFragment.show(supportFragmentManager, bottomSheetFragment.tag)
     }

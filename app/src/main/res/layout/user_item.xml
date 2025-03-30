@@ -31,13 +31,6 @@
                 tools:text="Name: 28" />
 
             <TextView
-                android:id="@+id/age"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textSize="18sp"
-                tools:text="Age: 28" />
-
-            <TextView
                 android:id="@+id/email"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -50,13 +43,6 @@
                 android:layout_height="wrap_content"
                 android:textSize="18sp"
                 tools:text="Number: 7838273271" />
-
-            <TextView
-                android:id="@+id/address"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textSize="18sp"
-                tools:text="Address: 626 Main Street" />
         </LinearLayout>
     </com.google.android.material.card.MaterialCardView>
 </androidx.constraintlayout.widget.ConstraintLayout>

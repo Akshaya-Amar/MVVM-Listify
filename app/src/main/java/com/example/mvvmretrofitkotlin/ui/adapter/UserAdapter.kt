@@ -39,15 +39,8 @@ class UserAdapter(
             with(binding) {
                 val fullName = "${user.firstName} ${user.lastName}"
                 name.text = fullName
-                age.text = user.age.toString()
                 email.text = user.email
                 phoneNumber.text = user.phone
-
-                val completeAddress = user.address?.let {
-                    "${it.address}, ${it.state}, ${it.city}"
-                } ?: "No Address Available"
-                address.text = completeAddress
-
                 root.setOnClickListener {
                     onItemClick(user)
                 }
