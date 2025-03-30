@@ -11,7 +11,7 @@ import com.example.mvvmretrofitkotlin.data.repository.UserRepositoryImpl
 import kotlinx.coroutines.launch
 
 class UserViewModel(
-    private val userRepository: UserRepository = UserRepositoryImpl()
+    private val repo: UserRepository = UserRepositoryImpl()
 ) : ViewModel() {
 
     private var _users = MutableLiveData<Result<UserData>>(Result.Loading)
@@ -23,7 +23,7 @@ class UserViewModel(
 
     private fun fetchUsers() {
         viewModelScope.launch {
-            val data = userRepository.fetchUsers()
+            val data = repo.fetchUsers()
             _users.postValue(data)
         }
     }
