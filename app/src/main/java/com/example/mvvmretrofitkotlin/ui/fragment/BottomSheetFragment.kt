@@ -14,54 +14,54 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
 class BottomSheetFragment : BottomSheetDialogFragment() {
 
-    private lateinit var binding: BottomSheetItemBinding
+     private lateinit var binding: BottomSheetItemBinding
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        binding = BottomSheetItemBinding.inflate(inflater, container, false)
-        return binding.root
-    }
+     override fun onCreateView(
+          inflater: LayoutInflater,
+          container: ViewGroup?,
+          savedInstanceState: Bundle?
+     ): View {
+          binding = BottomSheetItemBinding.inflate(inflater, container, false)
+          return binding.root
+     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+          super.onViewCreated(view, savedInstanceState)
 
-        val userData: User? = if (VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            arguments?.getParcelable(USER_KEY, User::class.java)
-        } else {
-            arguments?.getParcelable(USER_KEY)
-        }
+          val userData: User? = if (VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+               arguments?.getParcelable(USER_KEY, User::class.java)
+          } else {
+               arguments?.getParcelable(USER_KEY)
+          }
 
-        userData?.let { user ->
-            val unknownValue = getString(R.string.unknown_value)
+          userData?.let { user ->
+               val unknownValue = getString(R.string.unknown_value)
 
-            binding.title.text = "${user.firstName ?: unknownValue} details"
+               binding.title.text = "${user.firstName ?: unknownValue} details"
 
-            val address = user.address
-            val userInfo = buildString {
-                appendLine("ID: ${user.id ?: unknownValue}")
-                appendLine("Name: ${user.firstName ?: unknownValue} ${user.lastName ?: unknownValue}")
-                appendLine("Age: ${user.age ?: unknownValue}")
-                appendLine("Email: ${user.email ?: unknownValue}")
-                appendLine("Phone number: ${user.phone ?: unknownValue}")
-                appendLine(
-                    "Address: " +
-                            "${address?.address ?: unknownValue}, " +
-                            "${address?.state ?: unknownValue}, " +
-                            "${address?.city ?: unknownValue}, " +
-                            "${address?.postalCode ?: unknownValue}"
-                )
-            }
-            binding.description.text = userInfo
-        }
-    }
+               val address = user.address
+               val userInfo = buildString {
+                    appendLine("ID: ${user.id ?: unknownValue}")
+                    appendLine("Name: ${user.firstName ?: unknownValue} ${user.lastName ?: unknownValue}")
+                    appendLine("Age: ${user.age ?: unknownValue}")
+                    appendLine("Email: ${user.email ?: unknownValue}")
+                    appendLine("Phone number: ${user.phone ?: unknownValue}")
+                    appendLine(
+                         "Address: " +
+                                 "${address?.address ?: unknownValue}, " +
+                                 "${address?.state ?: unknownValue}, " +
+                                 "${address?.city ?: unknownValue}, " +
+                                 "${address?.postalCode ?: unknownValue}"
+                    )
+               }
+               binding.description.text = userInfo
+          }
+     }
 
-    companion object {
-        private const val USER_KEY = "user_key"
-        fun newInstance(user: User): BottomSheetFragment = BottomSheetFragment().apply {
-            arguments = bundleOf(USER_KEY to user)
-        }
-    }
+     companion object {
+          private const val USER_KEY = "user_key"
+          fun newInstance(user: User): BottomSheetFragment = BottomSheetFragment().apply {
+               arguments = bundleOf(USER_KEY to user)
+          }
+     }
 }

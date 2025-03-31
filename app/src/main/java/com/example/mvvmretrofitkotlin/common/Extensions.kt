@@ -6,21 +6,21 @@ import android.widget.Toast
 import com.google.android.material.snackbar.Snackbar
 
 fun Context.showToast(message: String, duration: Int = Toast.LENGTH_SHORT) {
-    Toast.makeText(this, message, duration).show()
+     Toast.makeText(this, message, duration).show()
 }
 
 fun View.showSnackBar(message: String, duration: Int = Snackbar.LENGTH_LONG) {
-    Snackbar.make(this, message, duration).show()
+     Snackbar.make(this, message, duration).show()
 }
 
 fun View.show() {
-    visibility = View.VISIBLE
+     visibility = View.VISIBLE
 }
 
 fun View.hide() {
-    visibility = View.GONE
+     visibility = View.GONE
 }
 
-inline fun <T : Collection<*>> T?.letEmpty(block: (T) -> Unit) {
-    this?.takeIf { it.isNotEmpty() }?.let(block)
+inline fun <T : Collection<Any>> T?.letEmpty(block: (T) -> Unit) {
+     this?.takeIf { it.isNotEmpty() }?.let(block)
 }

@@ -19,60 +19,60 @@ import com.example.mvvmretrofitkotlin.ui.viewmodel.UserViewModel
 
 class HomeActivity : AppCompatActivity() {
 
-    private val viewModel: UserViewModel by viewModels()
-    private lateinit var binding: ActivityHomeBinding
+     private val viewModel: UserViewModel by viewModels()
+     private lateinit var binding: ActivityHomeBinding
 
-    private val userAdapter by lazy {
-        UserAdapter { user ->
-            showBottomSheet(user)
-        }
-    }
+     private val userAdapter by lazy {
+          UserAdapter { user ->
+               showBottomSheet(user)
+          }
+     }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+     override fun onCreate(savedInstanceState: Bundle?) {
+          super.onCreate(savedInstanceState)
 
-        binding = ActivityHomeBinding.inflate(layoutInflater)
-        setContentView(binding.root)
+          binding = ActivityHomeBinding.inflate(layoutInflater)
+          setContentView(binding.root)
 
-        setupRecyclerView()
+          setupRecyclerView()
 
-        viewModel.users.observe(this) { result ->
-            when (result) {
-                is Result.Loading -> showLoadingIndicator()
-                is Result.Success -> displayData(result.data.users)
-                is Result.Failure -> showError(result.message)
-            }
-        }
-    }
+          viewModel.users.observe(this) { result ->
+               when (result) {
+                    is Result.Loading -> showLoadingIndicator()
+                    is Result.Success -> displayData(result.data.users)
+                    is Result.Failure -> showError(result.message)
+               }
+          }
+     }
 
-    private fun showError(message: String) {
-        binding.progressBar.hide()
-        binding.recyclerView.hide()
-        binding.root.showSnackBar(message)
-    }
+     private fun showError(message: String) {
+          binding.progressBar.hide()
+          binding.recyclerView.hide()
+          binding.root.showSnackBar(message)
+     }
 
-    private fun displayData(users: List<User>?) {
-        binding.progressBar.hide()
-        binding.recyclerView.show()
-        users?.letEmpty {
-            userAdapter.submitList(users)
-        } ?: showToast(getString(R.string.empty_data))
-    }
+     private fun displayData(users: List<User>?) {
+          binding.progressBar.hide()
+          binding.recyclerView.show()
+          users?.letEmpty {
+               userAdapter.submitList(users)
+          } ?: showToast(getString(R.string.empty_data))
+     }
 
-    private fun showLoadingIndicator() {
-        binding.progressBar.show()
-        binding.recyclerView.hide()
-    }
+     private fun showLoadingIndicator() {
+          binding.progressBar.show()
+          binding.recyclerView.hide()
+     }
 
-    private fun setupRecyclerView() {
-        binding.recyclerView.apply {
-            layoutManager = LinearLayoutManager(this@HomeActivity)
-            adapter = userAdapter
-        }
-    }
+     private fun setupRecyclerView() {
+          binding.recyclerView.apply {
+               layoutManager = LinearLayoutManager(this@HomeActivity)
+               adapter = userAdapter
+          }
+     }
 
-    private fun showBottomSheet(user: User) {
-        val bottomSheetFragment = BottomSheetFragment.newInstance(user)
-        bottomSheetFragment.show(supportFragmentManager, bottomSheetFragment.tag)
-    }
+     private fun showBottomSheet(user: User) {
+          val bottomSheetFragment = BottomSheetFragment.newInstance(user)
+          bottomSheetFragment.show(supportFragmentManager, bottomSheetFragment.tag)
+     }
 }

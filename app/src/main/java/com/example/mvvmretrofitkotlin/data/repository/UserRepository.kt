@@ -4,5 +4,5 @@ import com.example.mvvmretrofitkotlin.common.Result
 import com.example.mvvmretrofitkotlin.data.model.UserData
 
 interface UserRepository {
-    suspend fun getUsers(): Result<UserData>
+     suspend fun getUsers(): Result<UserData>
 }

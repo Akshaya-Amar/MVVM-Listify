@@ -11,20 +11,20 @@ import com.example.mvvmretrofitkotlin.data.repository.UserRepositoryImpl
 import kotlinx.coroutines.launch
 
 class UserViewModel(
-    private val repo: UserRepository = UserRepositoryImpl()
+     private val repo: UserRepository = UserRepositoryImpl()
 ) : ViewModel() {
 
-    private var _users = MutableLiveData<Result<UserData>>(Result.Loading)
-    val users: LiveData<Result<UserData>> get() = _users
+     private var _users = MutableLiveData<Result<UserData>>(Result.Loading)
+     val users: LiveData<Result<UserData>> get() = _users
 
-    init {
-        getUsers()
-    }
+     init {
+          getUsers()
+     }
 
-    private fun getUsers() {
-        viewModelScope.launch {
-            val data = repo.getUsers()
-            _users.postValue(data)
-        }
-    }
+     private fun getUsers() {
+          viewModelScope.launch {
+               val data = repo.getUsers()
+               _users.postValue(data)
+          }
+     }
 }
