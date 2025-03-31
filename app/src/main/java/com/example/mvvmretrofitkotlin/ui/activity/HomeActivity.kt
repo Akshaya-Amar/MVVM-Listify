@@ -4,10 +4,13 @@ import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.mvvmretrofitkotlin.R
 import com.example.mvvmretrofitkotlin.common.Result
 import com.example.mvvmretrofitkotlin.common.hide
+import com.example.mvvmretrofitkotlin.common.letEmpty
 import com.example.mvvmretrofitkotlin.common.show
 import com.example.mvvmretrofitkotlin.common.showSnackBar
+import com.example.mvvmretrofitkotlin.common.showToast
 import com.example.mvvmretrofitkotlin.data.model.User
 import com.example.mvvmretrofitkotlin.databinding.ActivityHomeBinding
 import com.example.mvvmretrofitkotlin.ui.adapter.UserAdapter
@@ -42,6 +45,25 @@ class HomeActivity : AppCompatActivity() {
         }
     }
 
+    private fun showError(message: String) {
+        binding.progressBar.hide()
+        binding.recyclerView.hide()
+        binding.root.showSnackBar(message)
+    }
+
+    private fun displayData(users: List<User>?) {
+        binding.progressBar.hide()
+        binding.recyclerView.show()
+        users?.letEmpty {
+            userAdapter.submitList(users)
+        } ?: showToast(getString(R.string.empty_data))
+    }
+
+    private fun showLoadingIndicator() {
+        binding.progressBar.show()
+        binding.recyclerView.hide()
+    }
+
     private fun setupRecyclerView() {
         binding.recyclerView.apply {
             layoutManager = LinearLayoutManager(this@HomeActivity)
@@ -52,22 +74,5 @@ class HomeActivity : AppCompatActivity() {
     private fun showBottomSheet(user: User) {
         val bottomSheetFragment = BottomSheetFragment.newInstance(user)
         bottomSheetFragment.show(supportFragmentManager, bottomSheetFragment.tag)
-    }
-
-    private fun showError(message: String) {
-        binding.progressBar.hide()
-        binding.recyclerView.hide()
-        binding.root.showSnackBar(message)
-    }
-
-    private fun displayData(users: List<User>?) {
-        binding.progressBar.hide()
-        binding.recyclerView.show()
-        userAdapter.submitList(users)
-    }
-
-    private fun showLoadingIndicator() {
-        binding.progressBar.show()
-        binding.recyclerView.hide()
     }
 }

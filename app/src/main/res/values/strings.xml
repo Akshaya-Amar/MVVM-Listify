@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">MVVMRetrofitKotlin</string>
     <string name="unknown_value">Unknown</string>
+    <string name="empty_data">Empty Data</string>
 </resources>

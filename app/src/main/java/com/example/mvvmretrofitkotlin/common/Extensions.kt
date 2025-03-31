@@ -20,3 +20,7 @@ fun View.show() {
 fun View.hide() {
     visibility = View.GONE
 }
+
+inline fun <T : Collection<*>> T?.letEmpty(block: (T) -> Unit) {
+    this?.takeIf { it.isNotEmpty() }?.let(block)
+}
