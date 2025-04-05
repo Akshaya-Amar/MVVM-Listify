@@ -21,7 +21,6 @@ class HomeActivity : AppCompatActivity() {
 
      private val viewModel: UserViewModel by viewModels()
      private lateinit var binding: ActivityHomeBinding
-
      private val userAdapter by lazy {
           UserAdapter { user ->
                showBottomSheet(user)
