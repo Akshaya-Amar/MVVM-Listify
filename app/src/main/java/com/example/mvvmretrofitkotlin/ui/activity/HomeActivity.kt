@@ -11,16 +11,22 @@ import com.example.mvvmretrofitkotlin.common.letEmpty
 import com.example.mvvmretrofitkotlin.common.show
 import com.example.mvvmretrofitkotlin.common.showSnackBar
 import com.example.mvvmretrofitkotlin.common.showToast
+import com.example.mvvmretrofitkotlin.data.api.RetrofitClient
 import com.example.mvvmretrofitkotlin.data.model.User
 import com.example.mvvmretrofitkotlin.databinding.ActivityHomeBinding
 import com.example.mvvmretrofitkotlin.ui.adapter.UserAdapter
 import com.example.mvvmretrofitkotlin.ui.fragment.BottomSheetFragment
 import com.example.mvvmretrofitkotlin.ui.viewmodel.UserViewModel
+import com.example.mvvmretrofitkotlin.ui.viewmodel.UserViewModelFactory
 
 class HomeActivity : AppCompatActivity() {
 
-     private val viewModel: UserViewModel by viewModels()
      private lateinit var binding: ActivityHomeBinding
+
+     private val viewModel: UserViewModel by viewModels {
+          UserViewModelFactory(RetrofitClient.apiService)
+     }
+
      private val userAdapter by lazy {
           UserAdapter { user ->
                showBottomSheet(user)
